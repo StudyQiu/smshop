@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smshop.mapper.AdminsMapper">
+
+    <resultMap id="admins" type="com.smshop.entity.Admins">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+    </resultMap>
+
+    <!--查询用户账号-->
+    <select id="login" resultMap="admins">
+        select * from admins where username = #{username}
+    </select>
+
+    <!--查询账号和密码-->
+    <select id="islogin" resultMap="admins">
+        select * from admins where username = #{username} and password = #{password}
+    </select>
+
+    <!--查询全部-->
+    <select id="adminsList" resultMap="admins">
+        select * from admins
+    </select>
+
+    <!--添加-->
+    <insert id="addAdmins">
+        insert into admins values (null , #{username}, #{password})
+    </insert>
+    
+    <!--修改-->
+    <update id="resetAdmins">
+        update admins set password = #{password} where id = #{id}
+    </update>
+
+    <!--删除-->
+    <delete id="deleteAdmins">
+        delete from admins where id = #{id}
+    </delete>
+
+</mapper>

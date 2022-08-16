@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smshop.mapper.OrdersMapper">
+
+    <resultMap id="orders" type="com.smshop.entity.Orders">
+        <id column="id" property="id"></id>
+        <result column="total" property="total"></result>
+        <result column="amount" property="amount"></result>
+        <result column="status" property="status"></result>
+        <result column="paytype" property="paytype"></result>
+        <result column="name" property="name"></result>
+        <result column="phone" property="phone"></result>
+        <result column="address" property="address"></result>
+        <result column="systime" property="systime"></result>
+        <result column="user_id" property="user_id"></result>
+        <association property="users" javaType="com.smshop.entity.Users">
+            <id column="id" property="id"></id>
+            <result column="username" property="username"></result>
+            <result column="password" property="password"></result>
+            <result column="name" property="name"></result>
+            <result column="phone" property="phone"></result>
+            <result column="address" property="address"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectOrders" resultMap="orders">
+        select o.*,u.* from orders o left join users u on o.user_id = u.id
+    </select>
+
+    <select id="selectTotalByUserId" resultMap="orders">
+        select total from orders where user_id = #{user_id}
+    </select>
+
+    <select id="selectOrdersByUserId" resultMap="orders">
+        select * from orders where user_id = #{user_id}
+    </select>
+
+    <select id="selectIdByUserId" resultType="java.lang.Integer">
+        select id from orders where user_id = #{user_id} order by id desc limit 1
+    </select>
+
+    <select id="selectOrdersByStatus" resultMap="orders">
+        select o.*,u.* from orders o left join users u on o.user_id = u.id where status = #{status}
+    </select>
+
+    <update id="orderUpdate">
+        update orders set status = #{status} where id = #{id}
+    </update>
+
+    <update id="updateOrders">
+        update orders set status = 2, paytype = #{paytype}, name = #{name}, phone = #{phone}, address = #{address} where id = #{id}
+    </update>
+
+    <delete id="orderDelete">
+        delete from orders where id = #{id}
+    </delete>
+
+    <insert id="addOrderByUserId">
+        insert into orders values (null, #{total}, #{amount}, 1, 1, #{name}, #{phone}, #{address}, now(), #{user_id})
+    </insert>
+
+</mapper>

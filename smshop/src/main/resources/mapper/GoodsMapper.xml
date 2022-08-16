@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smshop.mapper.GoodsMapper">
+
+    <resultMap id="goods" type="com.smshop.entity.Goods">
+        <id column="id" property="id"></id>
+        <result column="cover" property="cover"></result>
+        <result column="name" property="name"></result>
+        <result column="intro" property="intro"></result>
+        <result column="spec" property="spec"></result>
+        <result column="price" property="price"></result>
+        <result column="stock" property="stock"></result>
+        <result column="sales" property="sales"></result>
+        <result column="content" property="content"></result>
+        <result column="type_id" property="type_id"></result>
+    </resultMap>
+    
+    <select id="selectGoodsLikeName" resultMap="goods">
+        select * from goods where name like concat('%',#{name},'%')
+    </select>
+
+    <select id="selectGoods" resultMap="goods">
+        select * from goods
+    </select>
+
+    <select id="selectGoodsDescSales" resultMap="goods">
+        select * from goods order by sales desc
+    </select>
+
+    <select id="selectGoodsAscSales" resultMap="goods">
+        select * from goods order by sales asc
+    </select>
+
+    <select id="selectGoodsByTypeId" resultMap="goods">
+        select * from goods where type_id = #{type_id} order by sales desc
+    </select>
+    
+    <select id="selectGoodsInTops" resultMap="goods">
+        select * from goods where id in (select good_id from tops)
+    </select>
+
+    <insert id="addGoods">
+        insert into goods values (null, #{cover}, #{name}, #{intro}, #{spec}, #{price}, #{stock}, 0, #{content}, #{type_id})
+    </insert>
+
+    <select id="selectGoodsById" resultMap="goods">
+        select * from goods where id = #{id}
+    </select>
+
+    <update id="goodUpdate">
+        update goods set cover = #{cover}, name = #{name}, intro = #{intro}, spec = #{spec}, price = #{price}, stock = #{stock}, type_id = #{type_id}, content = #{content} where id = #{id}
+    </update>
+
+    <delete id="goodDelete">
+        delete from goods where id = #{id}
+    </delete>
+
+</mapper>

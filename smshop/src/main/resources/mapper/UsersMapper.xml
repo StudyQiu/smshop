@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smshop.mapper.UsersMapper">
+
+    <resultMap id="users" type="com.smshop.entity.Users">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+        <result column="name" property="name"></result>
+        <result column="phone" property="phone"></result>
+        <result column="address" property="address"></result>
+    </resultMap>
+
+    <!--查询全部-->
+    <select id="selectUsers" resultMap="users">
+        select * from users
+    </select>
+
+    <!--查询账号和密码-->
+    <select id="toLogin" resultMap="users">
+        select * from users where username = #{username} and password = #{password}
+    </select>
+
+    <!--添加-->
+    <insert id="addUsers">
+        insert into users values (null , #{username}, #{password}, #{name}, #{phone}, #{address})
+    </insert>
+
+    <!--根据id查询-->
+    <select id="selectUsersById" resultMap="users">
+        select * from users where id = #{id}
+    </select>
+
+    <!--修改密码-->
+    <update id="userReset">
+        update users set password = #{password} where id = #{id}
+    </update>
+
+    <!--根据id修改-->
+    <update id="userUpdate">
+        update users set name = #{name}, phone = #{phone}, address = #{address} where id = #{id}
+    </update>
+
+    <!--根据id删除-->
+    <delete id="userDelete">
+        delete from users where id = #{id}
+    </delete>
+
+</mapper>

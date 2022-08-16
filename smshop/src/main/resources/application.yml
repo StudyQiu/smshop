@@ -1,0 +1,41 @@
+##服务配置
+server:
+  ##端口号
+  port: 8081
+  ##设置session过期时间
+  servlet:
+    session:
+      timeout: 3600
+
+
+##spring配置
+spring:
+  main:
+    allow-circular-references: true
+  ##数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/smsc?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: 1234
+    ##连接池类型
+    type: com.alibaba.druid.pool.DruidDataSource
+  mvc:
+    view:
+      prefix: /pages/
+      suffix: .jsp
+    ##文件上传
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+##mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.smshop.entity
+
+##SQL打印
+logging:
+  level:
+    com.smshop.dao: debug

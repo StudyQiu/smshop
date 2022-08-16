@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smshop.mapper.CartsMapper">
+
+    <resultMap id="carts" type="com.smshop.entity.Carts">
+        <id column="id" property="id"></id>
+        <result column="amount" property="amount"></result>
+        <result column="good_id" property="good_id"></result>
+        <result column="user_id" property="user_id"></result>
+        <association property="goods" javaType="com.smshop.entity.Goods">
+            <id column="id" property="id"></id>
+            <result column="cover" property="cover"></result>
+            <result column="name" property="name"></result>
+            <result column="intro" property="intro"></result>
+            <result column="spec" property="spec"></result>
+            <result column="price" property="price"></result>
+            <result column="stock" property="stock"></result>
+            <result column="sales" property="sales"></result>
+            <result column="content" property="content"></result>
+            <result column="type_id" property="type_id"></result>
+        </association>
+    </resultMap>
+
+    <!--加入购物车-->
+    <insert id="addCart">
+        insert into carts values(null,#{amount},#{goods.id},#{user_id})
+    </insert>
+
+    <select id="cartSelectByIdAndGoodId" resultType="java.lang.Integer">
+        select count(*) from carts where good_id = #{goods.id} and user_id = #{user_id}
+    </select>
+
+    <update id="cartSelectByIdAndGoodIdAdd">
+        update carts set amount = amount+1 where good_id = #{goods.id} and user_id = #{user_id}
+    </update>
+
+    <select id="queryById" resultMap="carts">
+        select * from carts left join goods on carts.good_id = goods.id where user_id=#{user_id}
+    </select>
+
+    <select id="toCart" resultMap="carts">
+        select c.*,g.* from carts c left join goods g on c.good_id = g.id
+    </select>
+
+    <select id="selectCartsByUserId" resultType="java.lang.Integer">
+        select count(*) from carts where user_id = #{user_id}
+    </select>
+
+    <update id="add">
+        update carts set amount = amount+1 where id = #{id}
+    </update>
+
+    <update id="reduce">
+        update carts set amount = amount-1 where id = #{id}
+    </update>
+
+    <delete id="cartDelete">
+        delete from carts where id = #{id}
+    </delete>
+
+    <delete id="cartDeleteByUserId">
+        delete from carts where user_id = #{user_id}
+    </delete>
+
+</mapper>

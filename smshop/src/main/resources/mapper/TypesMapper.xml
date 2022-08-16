@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smshop.mapper.TypesMapper">
+
+    <resultMap id="types" type="com.smshop.entity.Types">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="num" property="num"></result>
+    </resultMap>
+
+    <select id="selectTypes" resultMap="types">
+        select * from types order by num asc
+    </select>
+
+    <insert id="addTypes">
+        insert into types values (null,#{name},#{num})
+    </insert>
+
+    <select id="selectTypesById" resultMap="types">
+        select * from types where id = #{id}
+    </select>
+
+    <update id="updateTypes">
+        update types set name = #{name}, num = #{num} where id = #{id}
+    </update>
+
+    <delete id="typeDelete">
+        delete from types where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smshop.mapper.ItemsMapper">
+
+    <resultMap id="items" type="com.smshop.entity.Items">
+        <id column="id" property="id"></id>
+        <result column="price" property="price"></result>
+        <result column="amount" property="amount"></result>
+        <result column="order_id" property="order_id"></result>
+        <result column="good_id" property="good_id"></result>
+        <association property="goods" javaType="com.smshop.entity.Goods">
+            <id column="id" property="id"></id>
+            <result column="cover" property="cover"></result>
+            <result column="name" property="name"></result>
+            <result column="intro" property="intro"></result>
+            <result column="spec" property="spec"></result>
+            <result column="price" property="price"></result>
+            <result column="stock" property="stock"></result>
+            <result column="sales" property="sales"></result>
+            <result column="content" property="content"></result>
+            <result column="type_id" property="type_id"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectItems" resultMap="items">
+        select i.*,g.* from items i left join goods g on i.good_id = g.id where order_id = #{order_id}
+    </select>
+
+    <select id="selectItem" resultMap="items">
+        select i.*,g.* from items i left join goods g on i.good_id = g.id
+    </select>
+
+    <insert id="addItems">
+        insert into items values (null, #{price}, #{amount}, #{order_id}, #{good_id})
+    </insert>
+
+</mapper>

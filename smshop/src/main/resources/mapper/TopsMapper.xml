@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smshop.mapper.TopsMapper">
+
+    <resultMap id="tops" type="com.smshop.entity.Tops">
+        <id column="id" property="id"></id>
+        <result column="type" property="type"></result>
+        <result column="good_id" property="good_id"></result>
+    </resultMap>
+    
+    <select id="selectGoodsIdInTops" resultMap="tops">
+        select * from tops
+    </select>
+    
+    <insert id="topSave">
+        insert into tops values (null, 1, #{good_id})
+    </insert>
+    
+    <delete id="topDelete">
+        delete from tops where good_id = #{good_id}
+    </delete>
+
+</mapper>
