@@ -13,9 +13,9 @@
 ![img](https://github.com/StudyQiu/smshop/blob/main/img/333.png)  
 
 功能模块如下：  
-![img](https://github.com/StudyQiu/smshop/blob/main/img/图1.png)  
-![img](https://github.com/StudyQiu/smshop/blob/main/img/图2.png)  
-![img](https://github.com/StudyQiu/smshop/blob/main/img/图3.png)  
+![img](https://github.com/StudyQiu/smshop/blob/main/img/图片1.png)  
+![img](https://github.com/StudyQiu/smshop/blob/main/img/图片2.png)  
+![img](https://github.com/StudyQiu/smshop/blob/main/img/图片3.png)  
 
 页面展示如下：  
 ![img](https://github.com/StudyQiu/smshop/blob/main/img/1.png)  
